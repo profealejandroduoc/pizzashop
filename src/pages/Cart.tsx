@@ -65,7 +65,7 @@ export const Cart = () => {
                                     <span className="fs-5 fw-bold">Total</span>
                                     <span className="fs-5 fw-bold">{formatCurrency(total)}</span>
                                 </div>
-                                <Button variant="dark" size="lg" className="w-100 fw-bold">Ir a Pagar</Button>
+                                <Button variant="dark" size="lg" className="w-100 fw-bold" href="/checkout">Ir a Pagar</Button>
                             </Card.Body>
                         </Card>
                     </Col>

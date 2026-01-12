@@ -7,6 +7,7 @@ import './index.css';
 
 import { CartProvider } from './context/CartContext';
 import { Cart } from './pages/Cart';
+import { Payment } from './pages/Payment';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/menu" element={<Menu />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Payment />} />
             </Routes>
           </main>
           <Footer />
