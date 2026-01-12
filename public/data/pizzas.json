@@ -1,0 +1,56 @@
+[
+    {
+        "name": "Clásica Pepperoni",
+        "description": "Doble pepperoni crujiente y queso mozzarella derretido.",
+        "price": 11990,
+        "image": "/src/assets/img/pizza_pepperoni.png",
+        "rating": 5,
+        "badge": {
+            "text": "Favorita",
+            "color": "danger"
+        }
+    },
+    {
+        "name": "Huerta Fresca",
+        "description": "Pimientos, cebolla morada, champiñones y aceitunas negras.",
+        "price": 13490,
+        "image": "/src/assets/img/pizza_vegetarian.png",
+        "rating": 4.5,
+        "badge": {
+            "text": "Veggie",
+            "color": "success"
+        }
+    },
+    {
+        "name": "Margarita Real",
+        "description": "Salsa de tomate San Marzano, mozzarella fresca y albahaca.",
+        "price": 10990,
+        "image": "/src/assets/img/pizza_margherita.png",
+        "rating": 5
+    },
+    {
+        "name": "Pollo BBQ",
+        "description": "Pollo a la parrilla, cebolla roja, cilantro y salsa BBQ ahumada.",
+        "price": 13990,
+        "image": "/src/assets/img/pizza_bbq.png",
+        "rating": 4
+    },
+    {
+        "name": "Tropical Hawaiana",
+        "description": "Jamón de primera calidad, piña dulce y extra queso.",
+        "price": 12490,
+        "image": "/src/assets/img/pizza_hawaiian.png",
+        "rating": 3.5
+    },
+    {
+        "name": "Diabla Mexicana",
+        "description": "Chorizo, jalapeños, rodajas de chile y salsa picante.",
+        "price": 14490,
+        "image": "/src/assets/img/pizza_spicy.png",
+        "rating": 5,
+        "badge": {
+            "text": "Picante",
+            "color": "warning"
+        }
+    }
+]
