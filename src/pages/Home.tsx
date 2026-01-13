@@ -4,10 +4,36 @@ import pizzaCar1 from '../assets/img/pizzacar1.png';
 import pizzaCar2 from '../assets/img/pizzacar2.png';
 import pizzaCar3 from '../assets/img/pizzacar3.png';
 import pizza1 from '../assets/img/pizza1.jpg';
-
+import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../utils/formatCurrency';
 
 export const Home = () => {
+    const { addToCart } = useCart();
+
+    const offers = [
+        {
+            name: 'Combo Pepperoni',
+            price: 9990,
+            image: pizza1,
+            rating: 5,
+            description: 'Disfruta de nuestra famosa pizza de pepperoni acompañada de tu bebida favorita.'
+        },
+        {
+            name: 'Combo Veggie',
+            price: 11990,
+            image: pizza1, // keeping same image as placeholder for now as in original
+            rating: 4,
+            description: 'Pizza vegetariana cargada de sabor + un postre dulce para terminar.'
+        },
+        {
+            name: 'Fiesta Pack',
+            price: 14990,
+            image: pizza1,
+            rating: 5,
+            description: 'Pizza especial familiar + 2 bebidas grandes. ¡Ideal para compartir!'
+        }
+    ];
+
     return (
         <>
             {/* Carousel */}
@@ -41,45 +67,23 @@ export const Home = () => {
             <section className="container my-5">
                 <h2 className="text-center mb-5 display-5 fw-bold text-uppercase">Nuestras Ofertas Irresistibles</h2>
                 <Row>
-                    <Col lg={4} md={6} className="mb-4">
-                        <Card className="h-100">
-                            <Card.Img variant="top" src={pizza1} alt="Pizza 1" />
-                            <Card.Body className="d-flex flex-column">
-                                <Card.Title>Combo Pepperoni</Card.Title>
-                                <Card.Text className="flex-grow-1">Disfruta de nuestra famosa pizza de pepperoni acompañada de tu bebida favorita.</Card.Text>
-                                <div className="d-flex justify-content-between align-items-center mt-3">
-                                    <span className="h4 text-primary mb-0">{formatCurrency(9990)}</span>
-                                    <Button variant="primary"><i className="bi bi-cart-plus"></i> Ordenar</Button>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col lg={4} md={6} className="mb-4">
-                        <Card className="h-100">
-                            <Card.Img variant="top" src={pizza1} alt="Pizza 2" />
-                            <Card.Body className="d-flex flex-column">
-                                <Card.Title>Combo Veggie</Card.Title>
-                                <Card.Text className="flex-grow-1">Pizza vegetariana cargada de sabor + un postre dulce para terminar.</Card.Text>
-                                <div className="d-flex justify-content-between align-items-center mt-3">
-                                    <span className="h4 text-primary mb-0">{formatCurrency(11990)}</span>
-                                    <Button variant="primary"><i className="bi bi-cart-plus"></i> Ordenar</Button>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col lg={4} md={6} className="mb-4">
-                        <Card className="h-100">
-                            <Card.Img variant="top" src={pizza1} alt="Pizza 3" />
-                            <Card.Body className="d-flex flex-column">
-                                <Card.Title>Fiesta Pack</Card.Title>
-                                <Card.Text className="flex-grow-1">Pizza especial familiar + 2 bebidas grandes. ¡Ideal para compartir!</Card.Text>
-                                <div className="d-flex justify-content-between align-items-center mt-3">
-                                    <span className="h4 text-primary mb-0">{formatCurrency(14990)}</span>
-                                    <Button variant="primary"><i className="bi bi-cart-plus"></i> Ordenar</Button>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                    {offers.map((offer) => (
+                        <Col lg={4} md={6} className="mb-4" key={offer.name}>
+                            <Card className="h-100">
+                                <Card.Img variant="top" src={offer.image} alt={offer.name} />
+                                <Card.Body className="d-flex flex-column">
+                                    <Card.Title>{offer.name}</Card.Title>
+                                    <Card.Text className="flex-grow-1">{offer.description}</Card.Text>
+                                    <div className="d-flex justify-content-between align-items-center mt-3">
+                                        <span className="h4 text-primary mb-0">{formatCurrency(offer.price)}</span>
+                                        <Button variant="primary" onClick={() => addToCart(offer)}>
+                                            <i className="bi bi-cart-plus"></i> Ordenar
+                                        </Button>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
                 </Row>
             </section>
         </>
