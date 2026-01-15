@@ -1,3 +1,12 @@
+# Pizzashop
+
+
+Proyecto ejemplo de una pizzeria con React, TypeScript y Vite.  
+Curso TAV 2026 Duoc UC
+
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
