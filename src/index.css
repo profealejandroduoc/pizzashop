@@ -45,12 +45,28 @@ h6,
   color: #fff !important;
   font-weight: 500;
   margin-left: 15px;
-  transition: color 0.3s;
+  transition: color 0.3s ease-in-out;
+  position: relative;
 }
 
-.nav-link:hover,
 .nav-link.active {
   color: var(--primary-color) !important;
+}
+
+.nav-link:hover:not(.active) {
+  color: var(--primary-color) !important;
+}
+
+.nav-link:focus {
+  color: #fff !important;
+}
+
+.nav-link:focus:hover {
+  color: var(--primary-color) !important;
+}
+
+.nav-link:active:not(:hover) {
+  color: #fff !important;
 }
 
 /* Buttons */

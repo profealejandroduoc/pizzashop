@@ -61,7 +61,7 @@ export const RegisterModal = ({ show, handleClose, switchToLogin }: RegisterModa
             const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
             // Add new user
             const { confirmPassword, ...userToSave } = formData;
-            const newUser = { ...userToSave, id: Date.now() }; // simple ID generation
+            const newUser = { ...userToSave, id: Date.now(), esActivo: true }; // simple ID generation
             existingUsers.push(newUser);
             // Save to local storage
             localStorage.setItem('users', JSON.stringify(existingUsers));

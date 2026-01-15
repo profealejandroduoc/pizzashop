@@ -4,9 +4,10 @@ import { WebpaySimulation } from '../components/WebpaySimulation';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { formatCurrency } from '../utils/formatCurrency';
+import { saveOrder } from '../services/orderService';
 
 export const Payment = () => {
-    const { total, clearCart } = useCart();
+    const { total, cart, clearCart } = useCart();
     const [status, setStatus] = useState<'processing' | 'success' | 'initial'>('initial');
     const navigate = useNavigate();
 
@@ -21,6 +22,16 @@ export const Payment = () => {
 
 
     const handlePaymentSuccess = () => {
+        // Save order to localStorage before clearing cart
+        const orderItems = cart.map(item => ({
+            name: item.name,
+            price: item.price,
+            count: item.count,
+            image: item.image
+        }));
+
+        saveOrder(orderItems, total);
+
         setStatus('success');
         clearCart();
     };

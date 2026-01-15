@@ -11,7 +11,7 @@ export interface Pizza {
 
 export const getMenu = async (): Promise<Pizza[]> => {
     try {
-        const response = await axios.get('/data/pizzas.json');
+        const response = await axios.get('/data/pizzas.json'); //En public data
         return response.data;
     } catch (error) {
         console.error("Error fetching menu:", error);
