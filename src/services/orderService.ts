@@ -2,7 +2,6 @@ export interface OrderItem {
     name: string;
     price: number;
     count: number;
-    image: string;
 }
 
 export type OrderStatus = 'pendiente' | 'preparación' | 'despachado' | 'entregado' | 'cancelado';

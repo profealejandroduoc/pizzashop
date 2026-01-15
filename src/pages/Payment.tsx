@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import { Container, Card, Button, Alert } from 'react-bootstrap';
 import { WebpaySimulation } from '../components/WebpaySimulation';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { formatCurrency } from '../utils/formatCurrency';
 import { saveOrder } from '../services/orderService';
 
 export const Payment = () => {
     const { total, cart, clearCart } = useCart();
+    const { user } = useAuth();
     const [status, setStatus] = useState<'processing' | 'success' | 'initial'>('initial');
     const navigate = useNavigate();
 
@@ -26,11 +27,10 @@ export const Payment = () => {
         const orderItems = cart.map(item => ({
             name: item.name,
             price: item.price,
-            count: item.count,
-            image: item.image
+            count: item.count
         }));
 
-        saveOrder(orderItems, total);
+        saveOrder(orderItems, total, user?.email);
 
         setStatus('success');
         clearCart();
