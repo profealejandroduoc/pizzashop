@@ -1,9 +1,11 @@
 import { Container, Row, Col, ListGroup, Button, Image, Card } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { formatCurrency } from '../utils/formatCurrency';
 
 export const Cart = () => {
     const { cart, increaseQuantity, decreaseQuantity, total } = useCart();
+    const { isAuthenticated } = useAuth();
 
     return (
         <Container className="py-5">
@@ -65,7 +67,17 @@ export const Cart = () => {
                                     <span className="fs-5 fw-bold">Total</span>
                                     <span className="fs-5 fw-bold">{formatCurrency(total)}</span>
                                 </div>
-                                <Button variant="dark" size="lg" className="w-100 fw-bold" href="/checkout">Ir a Pagar</Button>
+                                {isAuthenticated ? (
+                                    <Button variant="dark" size="lg" className="w-100 fw-bold" href="/checkout">Ir a Pagar</Button>
+                                ) : (
+                                    <div className="text-center">
+                                        <div className="alert alert-warning mb-2 py-2 small" role="alert">
+                                            <i className="bi bi-info-circle me-1"></i>
+                                            Inicia sesión para continuar
+                                        </div>
+                                        <Button variant="secondary" size="lg" className="w-100 fw-bold" disabled>Ir a Pagar</Button>
+                                    </div>
+                                )}
                             </Card.Body>
                         </Card>
                     </Col>

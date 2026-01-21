@@ -13,13 +13,18 @@ export const Payment = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!user) {
+            navigate('/cart');
+            return;
+        }
+
         // Only redirect if cart is empty and we are not in success state
         if (total === 0 && status !== 'success') {
             navigate('/cart');
         } else if (total > 0 && status === 'initial') {
             setStatus('processing');
         }
-    }, [total, navigate, status]);
+    }, [total, navigate, status, user]);
 
 
     const handlePaymentSuccess = () => {
