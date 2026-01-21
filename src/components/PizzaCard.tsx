@@ -1,19 +1,21 @@
 import { Card, Button, Badge } from 'react-bootstrap';
 
 interface PizzaCardProps {
+    id: string;
     name: string;
     description: string;
     price: number;
     image: string;
     rating: number; // 0-5
     badge?: { text: string; color: string };
+    ingredients?: string[];
 }
 
 import { formatCurrency } from '../utils/formatCurrency';
 
 import { useCart } from '../context/CartContext';
 
-export const PizzaCard = ({ name, description, price, image, rating, badge }: PizzaCardProps) => {
+export const PizzaCard = ({ id, name, description, price, image, rating, badge, ingredients }: PizzaCardProps) => {
     const { addToCart } = useCart();
 
     return (
@@ -38,7 +40,7 @@ export const PizzaCard = ({ name, description, price, image, rating, badge }: Pi
             </Card.Body>
             <Card.Footer className="p-4 pt-0 border-top-0 bg-transparent">
                 <div className="text-center">
-                    <Button variant="primary" className="mt-auto" onClick={() => addToCart({ name, description, price, image, rating, badge })}>Añadir al carrito</Button>
+                    <Button variant="primary" className="mt-auto" onClick={() => addToCart({ id, name, description, price, image, rating, badge, ingredients })}>Añadir al carrito</Button>
                 </div>
             </Card.Footer>
         </Card>

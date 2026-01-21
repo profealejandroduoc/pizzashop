@@ -30,6 +30,7 @@ export const Payment = () => {
     const handlePaymentSuccess = () => {
         // Save order to localStorage before clearing cart
         const orderItems = cart.map(item => ({
+            id: item.id,
             name: item.name,
             price: item.price,
             count: item.count

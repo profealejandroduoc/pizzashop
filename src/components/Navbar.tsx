@@ -40,7 +40,7 @@ export const Navbar = () => {
                             <Nav.Link href="#">Ofertas</Nav.Link>
                             <Nav.Link href="#">Contacto</Nav.Link>
                             <Nav.Item className="ms-lg-3">
-                                <Button as={Link} to="/cart" variant="outline-primary" className="rounded-pill px-4 me-2">
+                                <Button as={Link as any} to="/cart" variant="outline-primary" className="rounded-pill px-4 me-2">
                                     <i className="bi bi-cart-fill me-1"></i> {formatCurrency(total)}
                                 </Button>
                             </Nav.Item>

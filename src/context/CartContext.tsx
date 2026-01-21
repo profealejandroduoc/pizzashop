@@ -28,10 +28,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     const addToCart = (pizza: Pizza) => {
         setCart(prev => {
-            const existing = prev.find(item => item.name === pizza.name);
+            const existing = prev.find(item => item.id === pizza.id);
             if (existing) {
                 return prev.map(item =>
-                    item.name === pizza.name
+                    item.id === pizza.id
                         ? { ...item, count: item.count + 1 }
                         : item
                 );
@@ -40,15 +40,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         });
     };
 
-    const increaseQuantity = (name: string) => {
+    const increaseQuantity = (id: string) => {
         setCart(prev => prev.map(item =>
-            item.name === name ? { ...item, count: item.count + 1 } : item
+            item.id === id ? { ...item, count: item.count + 1 } : item
         ));
     };
 
-    const decreaseQuantity = (name: string) => {
+    const decreaseQuantity = (id: string) => {
         setCart(prev => prev.map(item => {
-            if (item.name === name) {
+            if (item.id === id) {
                 return { ...item, count: Math.max(0, item.count - 1) };
             }
             return item;

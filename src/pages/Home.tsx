@@ -12,6 +12,7 @@ export const Home = () => {
 
     const offers = [
         {
+            id: 'combo-pepperoni',
             name: 'Combo Pepperoni',
             price: 9990,
             image: pizza1,
@@ -19,6 +20,7 @@ export const Home = () => {
             description: 'Disfruta de nuestra famosa pizza de pepperoni acompañada de tu bebida favorita.'
         },
         {
+            id: 'combo-veggie',
             name: 'Combo Veggie',
             price: 11990,
             image: pizza1, // keeping same image as placeholder for now as in original
@@ -26,6 +28,7 @@ export const Home = () => {
             description: 'Pizza vegetariana cargada de sabor + un postre dulce para terminar.'
         },
         {
+            id: 'fiesta-pack',
             name: 'Fiesta Pack',
             price: 14990,
             image: pizza1,
@@ -76,7 +79,7 @@ export const Home = () => {
                                     <Card.Text className="flex-grow-1">{offer.description}</Card.Text>
                                     <div className="d-flex justify-content-between align-items-center mt-3">
                                         <span className="h4 text-primary mb-0">{formatCurrency(offer.price)}</span>
-                                        <Button variant="primary" onClick={() => addToCart(offer)}>
+                                        <Button variant="primary" onClick={() => addToCart(offer as any)}>
                                             <i className="bi bi-cart-plus"></i> Ordenar
                                         </Button>
                                     </div>

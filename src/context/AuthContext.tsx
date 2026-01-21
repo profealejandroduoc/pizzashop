@@ -1,8 +1,11 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
-interface User {
+// Extend User interface to include role
+export interface User {
     email: string;
     token: string;
+    role: 'admin' | 'user';
+    name?: string;
 }
 
 interface AuthContextType {
@@ -28,16 +31,52 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     }, [user]);
 
-    const login = async (email: string, password: string) => {
-        // Mock login - accept any email/password
-        // In a real app, this would make an API call
-        if (!email || !password) throw new Error('Email and password required');
+    // Seed Admin User if not exists
+    useEffect(() => {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const adminExists = users.some((u: any) => u.email === 'admin@pizzashop.com');
 
-        const newUser = {
-            email: email.toLowerCase().trim(),
-            token: 'mock-token-' + Math.random().toString(36).substring(7)
-        };
-        setUser(newUser);
+        if (!adminExists) {
+            const adminUser = {
+                id: 'admin-001',
+                email: 'admin@pizzashop.com',
+                password: 'admin', // In a real app, hash this!
+                name: 'Super',
+                surname: 'Admin',
+                phone: '00000000',
+                role: 'admin',
+                esActivo: true
+            };
+            users.push(adminUser);
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+    }, []);
+
+    const login = async (email: string, password: string) => {
+        return new Promise<void>((resolve, reject) => {
+            setTimeout(() => {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const foundUser = users.find((u: any) => u.email === email.toLowerCase().trim() && u.password === password);
+
+                if (foundUser) {
+                    if (!foundUser.esActivo) {
+                        reject(new Error('Usuario bloqueado. Contacte al administrador.'));
+                        return;
+                    }
+
+                    const userSession: User = {
+                        email: foundUser.email,
+                        token: 'mock-token-' + Date.now(),
+                        role: foundUser.role || 'user', // Default to user if undefined
+                        name: foundUser.name
+                    };
+                    setUser(userSession);
+                    resolve();
+                } else {
+                    reject(new Error('Credenciales inválidas'));
+                }
+            }, 500); // Simulate network delay
+        });
     };
 
     const logout = () => {
