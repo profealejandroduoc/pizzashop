@@ -1,14 +1,20 @@
 import { Container, Nav, Navbar, Button } from 'react-bootstrap';
-import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useState } from 'react';
 
 export const AdminLayout = () => {
     const { user, logout } = useAuth();
     const location = useLocation();
+    const navigate = useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState(true);
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
     const navItems = [
         { path: '/admin', icon: 'bi-speedometer2', label: 'Dashboard' },
@@ -64,7 +70,7 @@ export const AdminLayout = () => {
                         Administración
                     </Navbar.Brand>
                     <div className="d-flex align-items-center gap-3">
-                        <Button variant="outline-danger" size="sm" onClick={logout}>
+                        <Button variant="outline-danger" size="sm" onClick={handleLogout}>
                             <i className="bi bi-box-arrow-right me-1"></i> Salir
                         </Button>
                     </div>

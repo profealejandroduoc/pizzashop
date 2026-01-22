@@ -1,6 +1,7 @@
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Alert } from 'react-bootstrap';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginModalProps {
     show: boolean;
@@ -10,18 +11,35 @@ interface LoginModalProps {
 
 export const LoginModal = ({ show, handleClose, switchToRegister }: LoginModalProps) => {
     const { login } = useAuth();
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setError('');
+        setLoading(true);
+
         try {
-            await login(email, password);
+            const loggedUser = await login(email, password);
+            setEmail('');
+            setPassword('');
             handleClose();
+
+            // Redirect admin users to admin panel
+            if (loggedUser && loggedUser.role === 'admin') {
+                navigate('/admin');
+            }
         } catch (error) {
-            console.error('Login failed:', error);
+            const errorMessage = error instanceof Error ? error.message : 'Error al iniciar sesión';
+            setError(errorMessage);
+        } finally {
+            setLoading(false);
         }
     };
+
 
     return (
         <Modal show={show} onHide={handleClose} centered>
@@ -29,6 +47,12 @@ export const LoginModal = ({ show, handleClose, switchToRegister }: LoginModalPr
                 <Modal.Title style={{ fontFamily: 'Oswald, sans-serif' }}><i className="bi bi-person-circle me-2"></i>Iniciar Sesión</Modal.Title>
             </Modal.Header>
             <Modal.Body className="p-4">
+                {error && (
+                    <Alert variant="danger" dismissible onClose={() => setError('')}>
+                        <i className="bi bi-exclamation-circle-fill me-2"></i>
+                        {error}
+                    </Alert>
+                )}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="emailInput">
                         <Form.Label className="fw-bold">Correo Electrónico</Form.Label>
@@ -38,6 +62,7 @@ export const LoginModal = ({ show, handleClose, switchToRegister }: LoginModalPr
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
+                            disabled={loading}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="passwordInput">
@@ -48,14 +73,22 @@ export const LoginModal = ({ show, handleClose, switchToRegister }: LoginModalPr
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
+                            disabled={loading}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="rememberCheck">
-                        <Form.Check type="checkbox" label="Recordarme" />
+                        <Form.Check type="checkbox" label="Recordarme" disabled={loading} />
                     </Form.Group>
                     <div className="d-grid gap-2">
-                        <Button variant="primary" size="lg" type="submit">
-                            Entrar
+                        <Button variant="primary" size="lg" type="submit" disabled={loading}>
+                            {loading ? (
+                                <>
+                                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    Iniciando sesión...
+                                </>
+                            ) : (
+                                'Entrar'
+                            )}
                         </Button>
                     </div>
                 </Form>

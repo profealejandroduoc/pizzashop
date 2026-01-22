@@ -22,29 +22,64 @@ function App() {
     <Router>
       <AuthProvider>
         <CartProvider>
-          <div className="d-flex flex-column min-vh-100">
-            <Navbar />
-            <main className="flex-grow-1">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/menu" element={<Menu />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/checkout" element={<Payment />} />
-                <Route path="/orders" element={<Orders />} />
+          <Routes>
+            {/* Client Routes - with Navbar and Footer */}
+            <Route path="/" element={
+              <div className="d-flex flex-column min-vh-100">
+                <Navbar />
+                <main className="flex-grow-1">
+                  <Home />
+                </main>
+                <Footer />
+              </div>
+            } />
+            <Route path="/menu" element={
+              <div className="d-flex flex-column min-vh-100">
+                <Navbar />
+                <main className="flex-grow-1">
+                  <Menu />
+                </main>
+                <Footer />
+              </div>
+            } />
+            <Route path="/cart" element={
+              <div className="d-flex flex-column min-vh-100">
+                <Navbar />
+                <main className="flex-grow-1">
+                  <Cart />
+                </main>
+                <Footer />
+              </div>
+            } />
+            <Route path="/checkout" element={
+              <div className="d-flex flex-column min-vh-100">
+                <Navbar />
+                <main className="flex-grow-1">
+                  <Payment />
+                </main>
+                <Footer />
+              </div>
+            } />
+            <Route path="/orders" element={
+              <div className="d-flex flex-column min-vh-100">
+                <Navbar />
+                <main className="flex-grow-1">
+                  <Orders />
+                </main>
+                <Footer />
+              </div>
+            } />
 
-                {/* Admin Routes */}
-                <Route element={<ProtectedRoute requiredRole="admin" />}>
-                  <Route path="/admin" element={<AdminLayout />}>
-                    <Route index element={<AdminDashboard />} />
-                    <Route path="products" element={<ProductManagement />} />
-                    <Route path="users" element={<UserManagement />} />
-                    <Route path="orders" element={<OrderManagement />} />
-                  </Route>
-                </Route>
-              </Routes>
-            </main>
-            <Footer />
-          </div>
+            {/* Admin Routes - WITHOUT Navbar and Footer */}
+            <Route element={<ProtectedRoute requiredRole="admin" />}>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="products" element={<ProductManagement />} />
+                <Route path="users" element={<UserManagement />} />
+                <Route path="orders" element={<OrderManagement />} />
+              </Route>
+            </Route>
+          </Routes>
         </CartProvider>
       </AuthProvider>
     </Router>

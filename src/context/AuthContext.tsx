@@ -10,7 +10,7 @@ export interface User {
 
 interface AuthContextType {
     user: User | null;
-    login: (email: string, password: string) => Promise<void>;
+    login: (email: string, password: string) => Promise<User>;
     logout: () => void;
     isAuthenticated: boolean;
 }
@@ -34,12 +34,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Seed Admin User if not exists
     useEffect(() => {
         const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const adminExists = users.some((u: any) => u.email === 'admin@pizzashop.com');
+        const adminExists = users.some((u: any) => u.email === 'admin@admin.cl');
 
         if (!adminExists) {
             const adminUser = {
                 id: 'admin-001',
-                email: 'admin@pizzashop.com',
+                email: 'admin@admin.cl',
                 password: 'admin', // In a real app, hash this!
                 name: 'Super',
                 surname: 'Admin',
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     const login = async (email: string, password: string) => {
-        return new Promise<void>((resolve, reject) => {
+        return new Promise<User>((resolve, reject) => {
             setTimeout(() => {
                 const users = JSON.parse(localStorage.getItem('users') || '[]');
                 const foundUser = users.find((u: any) => u.email === email.toLowerCase().trim() && u.password === password);
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                         name: foundUser.name
                     };
                     setUser(userSession);
-                    resolve();
+                    resolve(userSession);
                 } else {
                     reject(new Error('Credenciales inválidas'));
                 }
