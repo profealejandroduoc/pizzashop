@@ -44,8 +44,8 @@ export const Menu = () => {
                     <Alert variant="danger" className="text-center">{error}</Alert>
                 ) : (
                     <Row className="gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
-                        {pizzas.map((pizza, index) => (
-                            <Col className="mb-5" key={index}>
+                        {pizzas.map((pizza) => (
+                            <Col className="mb-5" key={pizza.id}>
                                 <PizzaCard {...pizza} />
                             </Col>
                         ))}

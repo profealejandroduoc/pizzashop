@@ -37,8 +37,8 @@ export const Navbar = () => {
                             <Nav.Link as={Link} to="/" active={location.pathname === '/'}>Inicio</Nav.Link>
                             <Nav.Link as={Link} to="/menu" active={location.pathname === '/menu'}>Menú</Nav.Link>
                             <Nav.Link as={Link} to="/orders" active={location.pathname === '/orders'}>Mis Pedidos</Nav.Link>
-                            <Nav.Link href="#">Ofertas</Nav.Link>
-                            <Nav.Link href="#">Contacto</Nav.Link>
+                            <Nav.Link href="/#ofertas">Ofertas</Nav.Link>
+                            <Nav.Link href="/#contacto">Contacto</Nav.Link>
                             <Nav.Item className="ms-lg-3">
                                 <Button as={Link as any} to="/cart" variant="outline-primary" className="rounded-pill px-4 me-2">
                                     <i className="bi bi-cart-fill me-1"></i> {formatCurrency(total)}

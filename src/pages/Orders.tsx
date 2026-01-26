@@ -25,7 +25,7 @@ export const Orders = () => {
 
     const getPizzaImage = (name: string) => {
         const pizza = menu.find(p => p.name === name);
-        return pizza?.image || '/src/assets/img/pizza_pepperoni.png'; // Fallback image
+        return pizza?.image || '/img/pizza_pepperoni.png'; // Fallback image from public
     };
 
     return (

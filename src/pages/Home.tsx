@@ -67,7 +67,7 @@ export const Home = () => {
             </section>
 
             {/* Offers */}
-            <section className="container my-5">
+            <section id="ofertas" className="container my-5">
                 <h2 className="text-center mb-5 display-5 fw-bold text-uppercase">Nuestras Ofertas Irresistibles</h2>
                 <Row>
                     {offers.map((offer) => (

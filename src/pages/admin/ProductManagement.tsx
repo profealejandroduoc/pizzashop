@@ -50,7 +50,7 @@ export const ProductManagement = () => {
         e.preventDefault();
         try {
             // For simplicity, reusing image or default if empty
-            const image = formData.image || '/src/assets/img/pizza_pepperoni.png';
+            const image = formData.image || '/img/pizza_pepperoni.png';
 
             await savePizza({
                 ...formData as Pizza,

@@ -29,7 +29,18 @@ export const getMenu = async (): Promise<Pizza[]> => {
     const storedPizzas = getFromStorage();
 
     if (storedPizzas.length > 0) {
-        return storedPizzas;
+        let normalized = false;
+        const normalizedPizzas = storedPizzas.map(pizza => {
+            if (pizza.image?.startsWith('/src/assets/img/')) {
+                normalized = true;
+                return { ...pizza, image: pizza.image.replace('/src/assets/img/', '/img/') };
+            }
+            return pizza;
+        });
+        if (normalized) {
+            saveToStorage(normalizedPizzas);
+        }
+        return normalizedPizzas;
     }
 
     // If not, fetch from JSON and seed
