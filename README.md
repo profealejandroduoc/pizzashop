@@ -1,11 +1,9 @@
 # Pizzashop
 
+# PRUEBAS DE PRODUCTO
 
 Proyecto ejemplo de una pizzeria con React, TypeScript y Vite.  
 Curso TAV 2026 Duoc UC
-
-
-
 
 # React + TypeScript + Vite
 
