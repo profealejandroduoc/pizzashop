@@ -7,6 +7,11 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['test/setup.ts'],
-    css: true
+    css: true,
+    coverage: {
+      provider: 'v8',
+      reportsDirectory: 'coverage',
+      reporter: ['text', 'html', 'lcov']
+    }
   }
 })
